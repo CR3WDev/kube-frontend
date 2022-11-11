@@ -16,24 +16,26 @@ const commands = [
 ]
 const pizza = [
     {
-        command: 'Pizza1',
+        command: '1 -',
         args: 'Calabresa',
-        description: 'Para escolher uma pizza e uma bebida'
+        description: 'Calabresa, Oregano, Mussarela - 38 reais'
     },
     {
-        command: 'Pizza2',
+        command: '2 -',
         args: 'Peperone',
-        description: 'Para escolher apenas a pizza'
+        description: 'Peperone, Oregano, Mussarela - 40 reais'
     }
 ]
 const bebida = [
     {
-        command: 'Bebida1',
+        command: '1 -',
         args: 'Coca Cola',
+        description: 'Lata 400ml - 6 reais'
     },
     {
-        command: 'Bebida2',
+        command: '2 -',
         args: 'Pepsi',
+        description: 'Lata 400ml - 6 reais'
     }
 ]
 
@@ -69,11 +71,11 @@ const getCardapioBebidaDescricao = (z: BotCommand) =>
     `${z.command}${z.args ? ' ' + z.args : ''} - ${z.description}`;
 
 const getPizzaListText = () =>
-    commands.map(getCardapioPizzaDescricao)
+    pizza.map(getCardapioPizzaDescricao)
         .join('\n');
 
 const getBebidaListText = () =>
-    commands.map(getCardapioBebidaDescricao)
+    bebida.map(getCardapioBebidaDescricao)
         .join('\n');
 
 const getCommandListText = () =>
