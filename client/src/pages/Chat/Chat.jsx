@@ -58,7 +58,7 @@ import axios from "axios";
 const Chat = props => {
 
   //meta title
-  document.title = "Conversas";
+  document.title = "Chat";
 
   const dispatch = useDispatch();
 
@@ -734,7 +734,7 @@ const Chat = props => {
                               className="btn btn-primary btn-rounded chat-send w-md "
                             >
                               <span className="d-none d-sm-inline-block me-2">
-                                Send
+                                {props.t('Send')}
                               </span>{" "}
                               <i className="mdi mdi-send" />
                             </Button>
