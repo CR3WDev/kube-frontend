@@ -15,7 +15,7 @@ import { useFormik } from "formik";
 import { userForgetPassword } from "../../store/actions";
 
 // import images
-import profile from "../../assets/images/profile-img.png";
+import profile from "../../assets/images/BANNER-SENHA.png";
 import logo from "../../assets/images/logo.svg";
 
 const ForgetPasswordPage = props => {
@@ -31,7 +31,7 @@ const ForgetPasswordPage = props => {
       email: '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
+      email: Yup.string().required("Por favor coloque seu Email"),
     }),
     onSubmit: (values) => {
       dispatch(userForgetPassword(values, props.history));
@@ -57,32 +57,10 @@ const ForgetPasswordPage = props => {
               <Card className="overflow-hidden">
                 <div className="bg-primary bg-softbg-soft-primary">
                   <Row>
-                    <Col xs={7}>
-                      <div className="text-primary p-4">
-                        <h5 className="text-primary">Seja Bem Vindo!</h5>
-                        <p>Sign in to continue to Skote.</p>
-                      </div>
-                    </Col>
-                    <Col className="col-5 align-self-end">
                       <img src={profile} alt="" className="img-fluid" />
-                    </Col>
                   </Row>
                 </div>
-                <CardBody className="pt-0">
-                  <div>
-                    <Link to="/">
-                      <div className="avatar-md profile-user-wid mb-4">
-                        <span className="avatar-title rounded-circle bg-light">
-                          <img
-                            src={logo}
-                            alt=""
-                            className="rounded-circle"
-                            height="34"
-                          />
-                        </span>
-                      </div>
-                    </Link>
-                  </div>
+                <CardBody className="pt-10">
                   <div className="p-2">
                     {forgetError && forgetError ? (
                       <Alert color="danger" style={{ marginTop: "13px" }}>
@@ -108,7 +86,7 @@ const ForgetPasswordPage = props => {
                         <Input
                           name="email"
                           className="form-control"
-                          placeholder="Enter email"
+                          placeholder="Coloque seu email"
                           type="email"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
@@ -127,7 +105,7 @@ const ForgetPasswordPage = props => {
                             className="btn btn-primary w-md "
                             type="submit"
                           >
-                            Reset
+                            Enviar
                           </button>
                         </Col>
                       </Row>
@@ -137,14 +115,13 @@ const ForgetPasswordPage = props => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Go back to{" "}
+                  Voltar para{" "}
                   <Link to="login" className="font-weight-medium text-primary">
                     Login
                   </Link>{" "}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                  © {new Date().getFullYear()} KUBE. 🤖
                 </p>
               </div>
             </Col>

@@ -88,7 +88,7 @@ const UserProfile = (props) => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumb title="Skote" breadcrumbItem={props.t("Profile")} />
+          <Breadcrumb title="KUBE" breadcrumbItem={props.t("Profile")} />
 
           <Row>
             <Col lg="12">

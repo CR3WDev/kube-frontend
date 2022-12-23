@@ -16,12 +16,12 @@ import { useFormik } from "formik";
 import { loginUser } from "../../store/actions";
 
 // import images
-import profile from "../../assets/images/profile-img.png";
-import logo from "../../assets/images/logo.svg";
+import profile from "../../assets/images/Banner3.png";
+import logo from "../../assets/images/KUBE- logo.png";
 
 const Login = props => {
   //meta title
-  document.title = "Login | Skote - Vite React Admin & Dashboard Template";
+  document.title = "Login | Kube - Tornando sua vida mais simples";
   const dispatch = useDispatch();
 
   const validation = useFormik({
@@ -60,32 +60,28 @@ const Login = props => {
               <Card className="overflow-hidden">
                 <div className="bg-primary bg-soft">
                   <Row>
-                    <Col xs={7}>
-                      <div className="text-primary p-4">
-                        <h5 className="text-primary">Seja Bem Vindo!</h5>
-                        <p>Logue na sua conta para continuar.</p>
-                      </div>
-                    </Col>
-                    <Col className="col-5 align-self-end">
+                    <Col>
                       <img src={profile} alt="" className="img-fluid" />
                     </Col>
                   </Row>
                 </div>
                 <CardBody className="pt-0">
-                  <div>
-                    <Link to="/" className="auth-logo-light">
+                   <div>
+                    {/* <Link to="/" className="auth-logo-light">
                       <div className="avatar-md profile-user-wid mb-4">
                         <span className="avatar-title rounded-circle bg-light">
                           <img
                             src={logo}
                             alt=""
                             className="rounded-circle"
-                            height="34"
+                            height="36"
                           />
                         </span>
                       </div>
-                    </Link>
-                  </div>
+                    </Link> */}
+                    <br/>
+                    <p> Seja Bem Vindo! <br/>Logue na sua conta para continuar!</p>
+                  </div> 
                   <div className="p-2">
                     <Form
                       className="form-horizontal"
@@ -176,8 +172,7 @@ const Login = props => {
                   </Link>{" "}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                  © {new Date().getFullYear()} KUBE. 🤖
                 </p>
               </div>
             </Col>

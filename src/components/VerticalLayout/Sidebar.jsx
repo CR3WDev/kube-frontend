@@ -13,6 +13,9 @@ import logo from "../../assets/images/logo.svg";
 import logoLightPng from "../../assets/images/logo-light.png";
 import logoLightSvg from "../../assets/images/logo-light.svg";
 import logoDark from "../../assets/images/logo-dark.png";
+import logoK from "../../assets/images/KUBE- fundo trans.png";
+import logoKtexto from "../../assets/images/KUBE - Texto.png";
+
 
 const Sidebar = props => {
 
@@ -22,16 +25,19 @@ const Sidebar = props => {
         <div className="navbar-brand-box">
           <Link to="/" className="logo logo-dark">
             <span className="logo-lg">
-              <img src={logoLightSvg} alt="" height="14" />
+              <img src={logoK} alt="" height="40" />
             </span> 
             <span className="logo-lg">
-              <img src={logoDark} alt="" height="22" />
+              <img src={logoKtexto} alt="" height="80" />
             </span>
           </Link>
 
           <Link to="/" className="logo logo-light">
             <span className="logo-lg">
-              <img src={logoLightPng} alt="" height="22" />
+              <img src={logoK} alt="" height="40" />
+            </span>
+            <span className="logo-lg">
+              <img src={logoKtexto} alt="" height="80" />
             </span>
           </Link>
         </div>

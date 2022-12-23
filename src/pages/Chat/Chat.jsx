@@ -180,14 +180,14 @@ const Chat = props => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="SKOTE" breadcrumbItem= {props.t("Chat")} />
+          <Breadcrumbs title="KUBE" breadcrumbItem= {props.t("Chat")} />
 
           <Row>
             <Col lg="12">
               <div className="d-lg-flex">
                 <div className="chat-leftsidebar me-lg-4">
                   <div >
-                    <div className="py-4 border-bottom">
+                    {/*<div className="py-4 border-bottom">
                       <div className="d-flex">
                         <div className="align-self-center me-3">
                           <img
@@ -206,7 +206,7 @@ const Chat = props => {
                           </p>
                         </div>
 
-                        {/* <div>
+                         <div>
                           <Dropdown
                             isOpen={menu1}
                             toggle={() => setMenu1(!menu1)}
@@ -224,9 +224,9 @@ const Chat = props => {
                               <DropdownItem href="#">Something else</DropdownItem>
                             </DropdownMenu>
                           </Dropdown>
-                        </div> */}
+                        </div> 
                       </div>
-                    </div>
+                    </div>*/}
 
                     <div className="search-box chat-search-box py-4">
                       <div className="position-relative">

@@ -14,11 +14,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 // import images
-import profileImg from "../../assets/images/profile-img.png";
+import profileImg from "../../assets/images/BANNER-REGISTRO.png";
 import logoImg from "../../assets/images/logo.svg";
 
 const Register = props => {
-  document.title = "Register | Skote - Vite React Admin & Dashboard Template";
+  document.title = "Registro | KUBE ";
 
   const dispatch = useDispatch();
 
@@ -66,19 +66,12 @@ const Register = props => {
               <Card className="overflow-hidden">
                 <div className="bg-primary bg-soft">
                   <Row>
-                    <Col className="col-7">
-                      <div className="text-primary p-4">
-                        <p>Consiga sua conta grátis agora!.</p>
-                      </div>
-                    </Col>
-                    <Col className="col-5 align-self-end">
-                      <img src={profileImg} alt="" className="img-fluid" />
-                    </Col>
+                    <img src={profileImg} alt="" className="img-fluid" />
                   </Row>
                 </div>
                 <CardBody className="pt-0">
-                  <div>
-                    <Link to="/">
+                  {/* <div>
+                    <Link to="/" >
                       <div className="avatar-md profile-user-wid mb-4">
                         <span className="avatar-title rounded-circle bg-light">
                           <img
@@ -90,7 +83,7 @@ const Register = props => {
                         </span>
                       </div>
                     </Link>
-                  </div>
+                  </div> */}
                   <div className="p-2">
                     <Form
                       className="form-horizontal"
@@ -102,7 +95,7 @@ const Register = props => {
                     >
                       {user && user ? (
                         <Alert color="success">
-                          Register User Successfully
+                          Usuário registrado com sucesso!
                         </Alert>
                       ) : null}
 
@@ -195,8 +188,7 @@ const Register = props => {
                   </Link>{" "}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                  © {new Date().getFullYear()} KUBE. 🤖
                 </p>
               </div>
             </Col>
