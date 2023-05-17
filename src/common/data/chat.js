@@ -1,9 +1,3 @@
-//import Images
-import avatar02 from "../../assets/images/users/avatar-2.jpg";
-import avatar03 from "../../assets/images/users/avatar-3.jpg";
-import avatar04 from "../../assets/images/users/avatar-4.jpg";
-import avatar06 from "../../assets/images/users/avatar-6.jpg";
-
 const chats = [
   {
     id: 1,
@@ -13,9 +7,9 @@ const chats = [
     description: "C.R.3.W",
     time: "05 min",
     isImg: true,
-    profile:"M"
+    profile: "M",
   },
-]
+];
 
 const groups = [
   { id: 1, image: "G", name: "General" },
@@ -23,7 +17,7 @@ const groups = [
   { id: 3, image: "M", name: "Meeting" },
   { id: 4, image: "A", name: "Project A" },
   { id: 5, image: "B", name: "Project B" },
-]
+];
 
 const contacts = [
   {
@@ -49,7 +43,7 @@ const contacts = [
     category: "D",
     child: [{ id: 4, name: "Dolores Minter" }],
   },
-]
+];
 
 const messages = [
   {
@@ -130,4 +124,4 @@ const messages = [
     time: "1 hr",
   },
 ];
-export { chats, messages, contacts, groups }
+export { chats, messages, contacts, groups };
