@@ -1,25 +1,35 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import { Row, Col, CardBody, Card, Alert, Container, Form, Input, FormFeedback, Label } from "reactstrap";
+import {
+  Alert,
+  Card,
+  CardBody,
+  Col,
+  Container,
+  Form,
+  FormFeedback,
+  Input,
+  Label,
+  Row,
+} from "reactstrap";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { withRouter, Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 // Formik validation
-import * as Yup from "yup";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 // actions
 import { loginUser } from "../../store/actions";
 
 // import images
 import profile from "../../assets/images/Banner3.png";
-import logo from "../../assets/images/KUBE- logo.png";
 
-const Login = props => {
+const Login = (props) => {
   //meta title
   document.title = "Login | Kube - Tornando sua vida mais simples";
   const dispatch = useDispatch();
@@ -29,8 +39,8 @@ const Login = props => {
     enableReinitialize: true,
 
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Por favor insira seu Email"),
@@ -38,21 +48,15 @@ const Login = props => {
     }),
     onSubmit: (values) => {
       dispatch(loginUser(values, props.history));
-    }
+    },
   });
 
-  const { error } = useSelector(state => ({
+  const { error } = useSelector((state) => ({
     error: state.Login.error,
   }));
 
   return (
     <React.Fragment>
-
-      <div className="home-btn d-none d-sm-block">
-        <Link to="/" className="text-dark">
-          <i className="bx bx-home h2" />
-        </Link>
-      </div>
       <div className="account-pages my-5 pt-sm-5">
         <Container>
           <Row className="justify-content-center">
@@ -66,7 +70,7 @@ const Login = props => {
                   </Row>
                 </div>
                 <CardBody className="pt-0">
-                   <div>
+                  <div>
                     {/* <Link to="/" className="auth-logo-light">
                       <div className="avatar-md profile-user-wid mb-4">
                         <span className="avatar-title rounded-circle bg-light">
@@ -79,9 +83,13 @@ const Login = props => {
                         </span>
                       </div>
                     </Link> */}
-                    <br/>
-                    <p> Seja Bem Vindo! <br/>Logue na sua conta para continuar!</p>
-                  </div> 
+                    <br />
+                    <p>
+                      {" "}
+                      Seja Bem Vindo! <br />
+                      Logue na sua conta para continuar!
+                    </p>
+                  </div>
                   <div className="p-2">
                     <Form
                       className="form-horizontal"
@@ -104,11 +112,15 @@ const Login = props => {
                           onBlur={validation.handleBlur}
                           value={validation.values.email || ""}
                           invalid={
-                            validation.touched.email && validation.errors.email ? true : false
+                            validation.touched.email && validation.errors.email
+                              ? true
+                              : false
                           }
                         />
                         {validation.touched.email && validation.errors.email ? (
-                          <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
+                          <FormFeedback type="invalid">
+                            {validation.errors.email}
+                          </FormFeedback>
                         ) : null}
                       </div>
 
@@ -122,11 +134,17 @@ const Login = props => {
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
                           invalid={
-                            validation.touched.password && validation.errors.password ? true : false
+                            validation.touched.password &&
+                            validation.errors.password
+                              ? true
+                              : false
                           }
                         />
-                        {validation.touched.password && validation.errors.password ? (
-                          <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
+                        {validation.touched.password &&
+                        validation.errors.password ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.password}
+                          </FormFeedback>
                         ) : null}
                       </div>
 
@@ -171,9 +189,7 @@ const Login = props => {
                     Registre-se aqui!{" "}
                   </Link>{" "}
                 </p>
-                <p>
-                  © {new Date().getFullYear()} KUBE. 🤖
-                </p>
+                <p>© {new Date().getFullYear()} KUBE. 🤖</p>
               </div>
             </Col>
           </Row>

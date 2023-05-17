@@ -1,22 +1,21 @@
-import PropTypes from 'prop-types'
-import React from "react"
+import PropTypes from "prop-types";
+import React from "react";
 
-import { Switch, BrowserRouter as Router } from "react-router-dom"
-import { connect } from "react-redux"
+import { connect } from "react-redux";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 // Import Routes all
-import { authProtectedRoutes,publicRoutes } from "./routes"
+import { authProtectedRoutes, publicRoutes } from "./routes";
 
 // Import all middleware
-import Authmiddleware from "./routes/route"
+import Authmiddleware from "./routes/route";
 
 // layouts Format
-import VerticalLayout from "./components/VerticalLayout/"
-import HorizontalLayout from "./components/HorizontalLayout/"
-import NonAuthLayout from "./components/NonAuthLayout"
+import NonAuthLayout from "./components/NonAuthLayout";
+import VerticalLayout from "./components/VerticalLayout/";
 
 // Import scss
-import "./assets/scss/theme.scss"
+import "./assets/scss/theme.scss";
 
 // Import Firebase Configuration file
 // import { initFirebaseBackend } from "./helpers/firebase_helper"
@@ -40,22 +39,8 @@ fakeBackend();
 // init firebase backend
 // initFirebaseBackend(firebaseConfig)
 
-const App = props => {
-
-  function getLayout() {
-    let layoutCls = VerticalLayout
-    switch (props.layout.layoutType) {
-      case "horizontal":
-        layoutCls = HorizontalLayout
-        break
-      default:
-        layoutCls = VerticalLayout
-        break
-    }
-    return layoutCls
-  }
-                
-  const Layout = getLayout()
+const App = (props) => {
+  const Layout = VerticalLayout;
   return (
     <React.Fragment>
       <Router>
@@ -84,17 +69,17 @@ const App = props => {
         </Switch>
       </Router>
     </React.Fragment>
-  )
-}
+  );
+};
 
 App.propTypes = {
-  layout: PropTypes.any
-}
+  layout: PropTypes.any,
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     layout: state.Layout,
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, null)(App)
+export default connect(mapStateToProps, null)(App);

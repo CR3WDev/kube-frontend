@@ -5,26 +5,26 @@ import { withRouter } from "react-router-dom";
 import {
   changeLayout,
   changeLayoutMode,
+  changeLayoutWidth,
   changeSidebarTheme,
   changeSidebarThemeImage,
   changeSidebarType,
   changeTopbarTheme,
-  changeLayoutWidth,
-  showRightSidebarAction
+  showRightSidebarAction,
 } from "../../store/actions";
 
 // Layout Related Components
+import RightSidebar from "../CommonForBoth/RightSidebar";
+import Footer from "./Footer";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import Footer from "./Footer";
-import RightSidebar from "../CommonForBoth/RightSidebar";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const Layout = props => {
+const Layout = (props) => {
   const dispatch = useDispatch();
-  
+
   const {
     isPreloader,
     leftSideBarThemeImage,
@@ -33,10 +33,10 @@ const Layout = props => {
     topbarTheme,
     showRightSidebar,
     leftSideBarTheme,
-    layoutModeType
-  } = useSelector(state => ({
+    layoutModeType,
+  } = useSelector((state) => ({
     isPreloader: state.Layout.isPreloader,
-    layoutModeType : state.Layout.layoutModeType,
+    layoutModeType: state.Layout.layoutModeType,
     leftSideBarThemeImage: state.Layout.leftSideBarThemeImage,
     leftSideBarType: state.Layout.leftSideBarType,
     layoutWidth: state.Layout.layoutWidth,
