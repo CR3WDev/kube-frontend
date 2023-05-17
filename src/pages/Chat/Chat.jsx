@@ -1,33 +1,23 @@
-import React, { useEffect, useState } from "react";
+import { isEmpty, map } from "lodash";
 import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { isEmpty, map, update } from "lodash";
 
+import classnames from "classnames";
 import { withTranslation } from "react-i18next";
-import moment from "moment";
 import {
   Button,
   Card,
   Col,
   Container,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Form,
-  FormGroup,
   Input,
-  InputGroup,
   Nav,
   NavItem,
   NavLink,
   Row,
   TabContent,
   TabPane,
-  UncontrolledDropdown,
-  UncontrolledTooltip,
 } from "reactstrap";
-import classnames from "classnames";
 
 //Import Scrollbar
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -35,16 +25,8 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 
 //Import Breadcrumb
 import Breadcrumbs from "/src/components/Common/Breadcrumb";
-import images from "/src/assets/images";
-import IconeUsuario from "/src/assets/images/users/Icone_Usuario.png";
-import TelegramIcone from "/src/assets/images/chat/TelegramIcone.png";
-import MensageIcone from "/src/assets/images/chat/MensageIcone.png";
-import TelegramBackground from "/src/assets/images/chat/TelegramBackground.png";
-import WhatsappIcone from "/src/assets/images/chat/WhatsappIcone.png";
-import InstagramIcone from "/src/assets/images/chat/InstagramIcone.png";
 
 import {
-  addMessage as onAddMessage,
   getChats as onGetChats,
   getContacts as onGetContacts,
   getGroups as onGetGroups,
@@ -52,17 +34,16 @@ import {
 } from "/src/store/actions";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
-const Chat = props => {
-
+const Chat = (props) => {
   //meta title
   document.title = "Chat";
 
   const dispatch = useDispatch();
 
-  const { chats, groups, contacts, messages } = useSelector(state => ({
+  const { chats, groups, contacts, messages } = useSelector((state) => ({
     chats: state.chat.chats,
     groups: state.chat.groups,
     contacts: state.chat.contacts,
@@ -98,10 +79,10 @@ const Chat = props => {
     if (!isEmpty(messages)) scrollToBottom();
   }, [messages]);
   const updatemsgs = () => {
-    axios.get("http://localhost:6432/message/5514031627").then((data)=>{
-      setMsgs(data.data.messages)
-    })
-  }
+    axios.get("http://localhost:6432/message/5514031627").then((data) => {
+      setMsgs(data.data.messages);
+    });
+  };
   // const toggleNotification = () => {
   //   setnotification_Menu(!notification_Menu)
   // }
@@ -119,12 +100,12 @@ const Chat = props => {
     setother_Menu(!other_Menu);
   };
 
-  const toggleTab = tab => {
+  const toggleTab = (tab) => {
     if (activeTab !== tab) {
       setactiveTab(tab);
     }
   };
-  const [msgs,setMsgs] = useState([]);
+  const [msgs, setMsgs] = useState([]);
   //Use For Chat Box
   const userChatOpen = (id, name, status, roomId) => {
     setChat_Box_Username(name);
@@ -134,12 +115,12 @@ const Chat = props => {
   };
   const addMessage = async () => {
     const message = {
-      roomId:"5514031627",
+      roomId: "5514031627",
       sender: "Davi frota",
       text: curMessage,
-      type: "incoming"
+      type: "incoming",
     };
-    await axios.post("http://localhost:6432/message",message);
+    await axios.post("http://localhost:6432/message", message);
     setcurMessage("");
   };
 
@@ -149,7 +130,7 @@ const Chat = props => {
     }
   };
 
-  const onKeyPress = e => {
+  const onKeyPress = (e) => {
     const { key, value } = e;
     if (key === "Enter") {
       setcurMessage(value);
@@ -180,54 +161,13 @@ const Chat = props => {
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumb */}
-          <Breadcrumbs title="KUBE" breadcrumbItem= {props.t("Chat")} />
+          <Breadcrumbs title="KUBE" breadcrumbItem={props.t("Chat")} />
 
           <Row>
             <Col lg="12">
               <div className="d-lg-flex">
                 <div className="chat-leftsidebar me-lg-4">
-                  <div >
-                    {/*<div className="py-4 border-bottom">
-                      <div className="d-flex">
-                        <div className="align-self-center me-3">
-                          <img
-                            src={IconeUsuario}
-                            className="avatar-xs rounded-circle"
-                            alt=""
-                          />
-                        </div>
-                        <div className="flex-grow-1">
-                          <h5 className="font-size-15 mt-0 mb-1">
-                            {currentUser.name}
-                          </h5>
-                          <p className="text-muted mb-0">
-                            <i className="mdi mdi-circle text-success align-middle me-2" />
-                            {props.t("Active")}
-                          </p>
-                        </div>
-
-                         <div>
-                          <Dropdown
-                            isOpen={menu1}
-                            toggle={() => setMenu1(!menu1)}
-                            className="chat-noti-dropdown active"
-                          >
-                            <DropdownToggle
-                              tag="a"
-                              className="btn"
-                            >
-                              <i className="bx bx-bell bx-tada"></i>
-                            </DropdownToggle>
-                            <DropdownMenu className="dropdown-menu-end">
-                              <DropdownItem href="#">Action</DropdownItem>
-                              <DropdownItem href="#">Another action</DropdownItem>
-                              <DropdownItem href="#">Something else</DropdownItem>
-                            </DropdownMenu>
-                          </Dropdown>
-                        </div> 
-                      </div>
-                    </div>*/}
-
+                  <div>
                     <div className="search-box chat-search-box py-4">
                       <div className="position-relative">
                         <Input
@@ -253,11 +193,13 @@ const Chat = props => {
                             }}
                           >
                             <i className="bx bx-chat font-size-20 d-sm-none" />
-                            <span className="d-none d-sm-block">{props.t("Chat")}</span>
+                            <span className="d-none d-sm-block">
+                              {props.t("Chat")}
+                            </span>
                           </NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink 
+                          <NavLink
                             disabled
                             className={classnames({
                               active: activeTab === "2",
@@ -266,12 +208,14 @@ const Chat = props => {
                               toggleTab("2");
                             }}
                           >
-                            <span className="d-none d-sm-block">{props.t("Groups")}</span>
+                            <span className="d-none d-sm-block">
+                              {props.t("Groups")}
+                            </span>
                           </NavLink>
                         </NavItem>
-                         <NavItem >
-                          <NavLink 
-                          disabled
+                        <NavItem>
+                          <NavLink
+                            disabled
                             className={classnames({
                               active: activeTab === "3",
                             })}
@@ -279,17 +223,24 @@ const Chat = props => {
                               toggleTab("3");
                             }}
                           >
-                            <span className="d-none d-sm-block">{props.t("Contacts")}</span>
+                            <span className="d-none d-sm-block">
+                              {props.t("Contacts")}
+                            </span>
                           </NavLink>
                         </NavItem>
                       </Nav>
                       <TabContent activeTab={activeTab} className="py-4">
                         <TabPane tabId="1">
                           <div>
-                            <h5 className="font-size-14 mb-3">{props.t("Recent")}</h5>
-                            <ul className="list-unstyled chat-list" id="recent-list">
+                            <h5 className="font-size-14 mb-3">
+                              {props.t("Recent")}
+                            </h5>
+                            <ul
+                              className="list-unstyled chat-list"
+                              id="recent-list"
+                            >
                               <PerfectScrollbar style={{ height: "410px" }}>
-                                {map(chats, chat => (
+                                {map(chats, (chat) => (
                                   <li
                                     key={chat.id + chat.status}
                                     className={
@@ -316,18 +267,18 @@ const Chat = props => {
                                               chat.status === props.t("Active")
                                                 ? "mdi mdi-circle text-success font-size-10"
                                                 : chat.status === "intermediate"
-                                                  ? "mdi mdi-circle text-warning font-size-10"
-                                                  : "mdi mdi-circle font-size-10"
+                                                ? "mdi mdi-circle text-warning font-size-10"
+                                                : "mdi mdi-circle font-size-10"
                                             }
                                           />
                                         </div>
-                                        {chat.isImg ?
+                                        {chat.isImg ? (
                                           <div className="avatar-xs align-self-center me-3">
                                             <span className="avatar-title rounded-circle bg-primary bg-soft text-primary">
                                               {chat.profile}
                                             </span>
                                           </div>
-                                          :
+                                        ) : (
                                           <div className="align-self-center me-3">
                                             <img
                                               src={chat.image}
@@ -335,7 +286,7 @@ const Chat = props => {
                                               alt=""
                                             />
                                           </div>
-                                        }
+                                        )}
 
                                         <div className="flex-grow-1 overflow-hidden">
                                           <h5 className="text-truncate font-size-14 mb-1">
@@ -359,10 +310,15 @@ const Chat = props => {
 
                         <TabPane tabId="2">
                           <div>
-                            <h5 className="font-size-14 mb-3">{props.t("Recent")}</h5>
-                            <ul className="list-unstyled chat-list" id="recent-list">
+                            <h5 className="font-size-14 mb-3">
+                              {props.t("Recent")}
+                            </h5>
+                            <ul
+                              className="list-unstyled chat-list"
+                              id="recent-list"
+                            >
                               <PerfectScrollbar style={{ height: "410px" }}>
-                                {map(chats, chat => (
+                                {map(chats, (chat) => (
                                   <li
                                     key={chat.id + chat.status}
                                     className={
@@ -389,18 +345,18 @@ const Chat = props => {
                                               chat.status === props.t("Active")
                                                 ? "mdi mdi-circle text-success font-size-10"
                                                 : chat.status === "intermediate"
-                                                  ? "mdi mdi-circle text-warning font-size-10"
-                                                  : "mdi mdi-circle font-size-10"
+                                                ? "mdi mdi-circle text-warning font-size-10"
+                                                : "mdi mdi-circle font-size-10"
                                             }
                                           />
                                         </div>
-                                        {chat.isImg ?
+                                        {chat.isImg ? (
                                           <div className="avatar-xs align-self-center me-3">
                                             <span className="avatar-title rounded-circle bg-primary bg-soft text-primary">
                                               {chat.profile}
                                             </span>
                                           </div>
-                                          :
+                                        ) : (
                                           <div className="align-self-center me-3">
                                             <img
                                               src={chat.image}
@@ -408,7 +364,7 @@ const Chat = props => {
                                               alt=""
                                             />
                                           </div>
-                                        }
+                                        )}
 
                                         <div className="flex-grow-1 overflow-hidden">
                                           <h5 className="text-truncate font-size-14 mb-1">
@@ -432,10 +388,15 @@ const Chat = props => {
 
                         <TabPane tabId="3">
                           <div>
-                            <h5 className="font-size-14 mb-3">{props.t("Recent")}</h5>
-                            <ul className="list-unstyled chat-list" id="recent-list">
+                            <h5 className="font-size-14 mb-3">
+                              {props.t("Recent")}
+                            </h5>
+                            <ul
+                              className="list-unstyled chat-list"
+                              id="recent-list"
+                            >
                               <PerfectScrollbar style={{ height: "410px" }}>
-                                {map(chats, chat => (
+                                {map(chats, (chat) => (
                                   <li
                                     key={chat.id + chat.status}
                                     className={
@@ -462,18 +423,18 @@ const Chat = props => {
                                               chat.status === props.t("Active")
                                                 ? "mdi mdi-circle text-success font-size-10"
                                                 : chat.status === "intermediate"
-                                                  ? "mdi mdi-circle text-warning font-size-10"
-                                                  : "mdi mdi-circle font-size-10"
+                                                ? "mdi mdi-circle text-warning font-size-10"
+                                                : "mdi mdi-circle font-size-10"
                                             }
                                           />
                                         </div>
-                                        {chat.isImg ?
+                                        {chat.isImg ? (
                                           <div className="avatar-xs align-self-center me-3">
                                             <span className="avatar-title rounded-circle bg-primary bg-soft text-primary">
                                               {chat.profile}
                                             </span>
                                           </div>
-                                          :
+                                        ) : (
                                           <div className="align-self-center me-3">
                                             <img
                                               src={chat.image}
@@ -481,7 +442,7 @@ const Chat = props => {
                                               alt=""
                                             />
                                           </div>
-                                        }
+                                        )}
 
                                         <div className="flex-grow-1 overflow-hidden">
                                           <h5 className="text-truncate font-size-14 mb-1">
@@ -521,8 +482,8 @@ const Chat = props => {
                                 Chat_Box_User_Status === props.t("Active")
                                   ? "mdi mdi-circle text-success align-middle me-2"
                                   : Chat_Box_User_Status === "intermediate"
-                                    ? "mdi mdi-circle text-warning align-middle me-1"
-                                    : "mdi mdi-circle align-middle me-1"
+                                  ? "mdi mdi-circle text-warning align-middle me-1"
+                                  : "mdi mdi-circle align-middle me-1"
                               }
                             />
                             {Chat_Box_User_Status}
@@ -603,28 +564,31 @@ const Chat = props => {
                           </ul> */}
                         </Col>
                       </Row>
-                    </div>    
+                    </div>
                     <div>
                       <div className="chat-conversation p-3">
                         <ul className="list-unstyled">
                           <PerfectScrollbar
-                            style={{ height: "470px", backgroundImage:"/src/assets/images/chat/TelegramBackground.png"}}
-                            containerRef={ref => setMessageBox(ref)}
+                            style={{
+                              height: "470px",
+                              backgroundImage:
+                                "/src/assets/images/chat/TelegramBackground.png",
+                            }}
+                            containerRef={(ref) => setMessageBox(ref)}
                           >
-                            
                             <li>
                               <div className="chat-day-title">
-                                <span className="title">{props.t("Today")}</span>
+                                <span className="title">
+                                  {props.t("Today")}
+                                </span>
                               </div>
                             </li>
                             {msgs &&
-                              map(msgs, message => (
+                              map(msgs, (message) => (
                                 <li
                                   key={"test_k" + message.id}
                                   className={
-                                    message.type === "outgoing"
-                                      ? "right"
-                                      : ""
+                                    message.type === "outgoing" ? "right" : ""
                                   }
                                 >
                                   <div className="conversation-list">
@@ -656,7 +620,10 @@ const Chat = props => {
                                         {message.sender}
                                       </div>
                                       <p>{message.text}</p>
-                                      <p className="chat-time mb-0"><i className="bx bx-time-five align-middle me-1"></i> {message.time}</p>
+                                      <p className="chat-time mb-0">
+                                        <i className="bx bx-time-five align-middle me-1"></i>{" "}
+                                        {message.time}
+                                      </p>
                                     </div>
                                   </div>
                                 </li>
@@ -672,7 +639,7 @@ const Chat = props => {
                                 type="text"
                                 value={curMessage}
                                 onKeyPress={onKeyPress}
-                                onChange={e => setcurMessage(e.target.value)}
+                                onChange={(e) => setcurMessage(e.target.value)}
                                 className="form-control chat-input"
                                 placeholder={props.t("EnterMessage")}
                               />
@@ -734,7 +701,7 @@ const Chat = props => {
                               className="btn btn-primary btn-rounded chat-send w-md "
                             >
                               <span className="d-none d-sm-inline-block me-2">
-                                {props.t('Send')}
+                                {props.t("Send")}
                               </span>{" "}
                               <i className="mdi mdi-send" />
                             </Button>
