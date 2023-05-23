@@ -1,6 +1,6 @@
 import { isEmpty, map } from "lodash";
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import classnames from "classnames";
@@ -36,20 +36,35 @@ import {
 //redux
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import io from "socket.io-client";
 
 const Chat = (props) => {
+  const scrollRef = useRef(null);
+
+  const socket = io("http://localhost:6432", {
+    transports: ["websocket", "polling", "flashsocket"],
+  });
   //meta title
   document.title = "Chat";
 
   const dispatch = useDispatch();
 
-  const { chats, groups, contacts, messages } = useSelector((state) => ({
+  const { chats, messages } = useSelector((state) => ({
     chats: state.chat.chats,
     groups: state.chat.groups,
     contacts: state.chat.contacts,
     messages: state.chat.messages,
   }));
+  useEffect(() => {
+    // Evento para receber mensagens
+    socket.on("receiveMessage", (message) => {
+      updatemsgs();
+    });
 
+    return () => {
+      socket.off("receiveMessage"); // Remove o ouvinte do evento ao desmontar o componente
+    };
+  }, []);
   const [messageBox, setMessageBox] = useState(null);
   // const Chat_Box_Username2 = "Henry Wells"
   const [currentRoomId, setCurrentRoomId] = useState(null);
@@ -58,10 +73,6 @@ const Chat = (props) => {
     name: "Davi Frota",
     isActive: true,
   });
-  const [menu1, setMenu1] = useState(false);
-  const [search_Menu, setsearch_Menu] = useState(false);
-  const [settings_Menu, setsettings_Menu] = useState(false);
-  const [other_Menu, setother_Menu] = useState(false);
   const [activeTab, setactiveTab] = useState("1");
   const [Chat_Box_Username, setChat_Box_Username] = useState("");
   // eslint-disable-next-line no-unused-vars
@@ -70,8 +81,6 @@ const Chat = (props) => {
 
   useEffect(() => {
     dispatch(onGetChats());
-    // dispatch(onGetGroups());
-    // dispatch(onGetContacts());
     updatemsgs();
     dispatch(onGetMessages(currentRoomId));
   }, [onGetChats, onGetGroups, onGetContacts, onGetMessages, currentRoomId]);
@@ -79,25 +88,9 @@ const Chat = (props) => {
     if (!isEmpty(messages)) scrollToBottom();
   }, [messages]);
   const updatemsgs = () => {
-    axios.get("http://localhost:6432/message/5514031627").then((data) => {
+    axios.get("http://localhost:6432/message/6032373073").then((data) => {
       setMsgs(data.data.messages);
     });
-  };
-  // const toggleNotification = () => {
-  //   setnotification_Menu(!notification_Menu)
-  // }
-
-  //Toggle Chat Box Menus
-  const toggleSearch = () => {
-    setsearch_Menu(!search_Menu);
-  };
-
-  const toggleSettings = () => {
-    setsettings_Menu(!settings_Menu);
-  };
-
-  const toggleOther = () => {
-    setother_Menu(!other_Menu);
   };
 
   const toggleTab = (tab) => {
@@ -106,7 +99,6 @@ const Chat = (props) => {
     }
   };
   const [msgs, setMsgs] = useState([]);
-  //Use For Chat Box
   const userChatOpen = (id, name, status, roomId) => {
     setChat_Box_Username(name);
     setChat_Box_User_Status(status);
@@ -115,13 +107,15 @@ const Chat = (props) => {
   };
   const addMessage = async () => {
     const message = {
-      roomId: "5514031627",
-      sender: "Davi frota",
+      roomId: "6032373073",
+      sender: "Marcelo Victor",
       text: curMessage,
       type: "incoming",
     };
-    await axios.post("http://localhost:6432/message", message);
-    setcurMessage("");
+    await axios.post("http://localhost:6432/message", message).then(() => {
+      socket.emit("sendMessage", message);
+      setcurMessage("");
+    });
   };
 
   const scrollToBottom = () => {
@@ -160,7 +154,6 @@ const Chat = (props) => {
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          {/* Render Breadcrumb */}
           <Breadcrumbs title="KUBE" breadcrumbItem={props.t("Chat")} />
 
           <Row>
@@ -239,7 +232,10 @@ const Chat = (props) => {
                               className="list-unstyled chat-list"
                               id="recent-list"
                             >
-                              <PerfectScrollbar style={{ height: "410px" }}>
+                              <PerfectScrollbar
+                                ref={scrollRef}
+                                style={{ height: "410px" }}
+                              >
                                 {map(chats, (chat) => (
                                   <li
                                     key={chat.id + chat.status}
@@ -317,7 +313,10 @@ const Chat = (props) => {
                               className="list-unstyled chat-list"
                               id="recent-list"
                             >
-                              <PerfectScrollbar style={{ height: "410px" }}>
+                              <PerfectScrollbar
+                                style={{ height: "410px" }}
+                                options={{ scrollbarYPosition: "end" }}
+                              >
                                 {map(chats, (chat) => (
                                   <li
                                     key={chat.id + chat.status}

@@ -102,6 +102,7 @@
     "redux-form": "^8.3.8",
     "redux-saga": "^1.2.1",
     "simplebar-react": "^2.4.1",
+    "socket.io-client": "^4.6.1",
     "styled-components": "^5.3.5",
     "swiper": "^8.3.2",
     "toastr": "^2.1.4",
